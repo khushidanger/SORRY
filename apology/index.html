@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I'm Sorry, My Love ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="light-mode">
+
+  <div id="scroll-progress"></div>
+  <canvas id="cursor-canvas"></canvas>
+  <canvas id="particle-canvas"></canvas>
+  <div id="compliment-bubble"></div>
+
+  <div id="controls">
+    <button id="dark-toggle" title="Toggle dark mode">🌙</button>
+    <button id="music-toggle" title="Toggle music">🎵</button>
+  </div>
+  <div id="sound-hint">🎵 Tap anywhere for music</div>
+
+  <div id="loader">
+    <div class="loader-heart">❤️</div>
+    <p>Preparing something special…</p>
+  </div>
+
+  <!-- SECTION 1 — LANDING -->
+  <section id="landing" class="section">
+    <div class="landing-content">
+      <h1 class="hero-title fade-in">I'm Sorry ❤️</h1>
+      <p class="hero-sub fade-in delay-1">
+        I know I made a mistake, but you mean more to me than my ego ever will.
+      </p>
+      <button id="hero-heart" class="hero-heart fade-in delay-2" title="Click me…">❤️</button>
+      <p id="heart-hint" class="heart-hint fade-in delay-2"></p>
+      <button id="hear-me-out" class="btn-primary fade-in delay-3">Please Hear Me Out</button>
+      <div id="countdown" class="countdown fade-in delay-3">
+        <span class="countdown-label">Time since I started missing your smile</span>
+        <div class="countdown-digits">
+          <div><span id="cd-days">0</span><small>days</small></div>
+          <div><span id="cd-hours">0</span><small>hours</small></div>
+          <div><span id="cd-mins">0</span><small>mins</small></div>
+          <div><span id="cd-secs">0</span><small>secs</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — LETTER -->
+  <section id="letter" class="section">
+    <div class="section-inner">
+      <h2 class="section-title scroll-reveal">From My Heart to Yours</h2>
+      <div class="glass-card letter-card scroll-reveal">
+        <div id="letter-paragraphs"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — REASONS -->
+  <section id="reasons" class="section">
+    <div class="section-inner">
+      <h2 class="section-title scroll-reveal">Why I Love You</h2>
+      <div class="reasons-grid" id="reasons-grid"></div>
+    </div>
+  </section>
+
+  <!-- SECTION 3.5 — LITTLE THINGS -->
+  <section id="little-things" class="section">
+    <div class="section-inner">
+      <h2 class="section-title scroll-reveal">Little Things I Adore</h2>
+      <div class="reasons-grid" id="little-things-grid"></div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — GALLERY -->
+  <section id="gallery" class="section">
+    <div class="section-inner">
+      <h2 class="section-title scroll-reveal">Our Beautiful Moments</h2>
+      <div class="carousel-wrapper scroll-reveal">
+        <button class="carousel-btn prev" id="carousel-prev">‹</button>
+        <div class="carousel-track-wrapper">
+          <div class="carousel-track" id="carousel-track"></div>
+        </div>
+        <button class="carousel-btn next" id="carousel-next">›</button>
+        <div class="carousel-dots" id="carousel-dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — PROMISES -->
+  <section id="promises" class="section">
+    <div class="section-inner">
+      <h2 class="section-title scroll-reveal">My Promises to You</h2>
+      <ol class="promises-list" id="promises-list"></ol>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — GAME -->
+  <section id="game" class="section">
+    <div class="section-inner">
+      <h2 class="section-title scroll-reveal">Can You Catch My Heart?</h2>
+      <p class="game-sub scroll-reveal">Click the heart 5 times to catch it!</p>
+      <div id="game-arena">
+        <button id="game-heart">❤️</button>
+        <div id="game-score">❤️ <span id="score-count">0</span> / 5</div>
+      </div>
+      <div id="game-result" hidden>
+        <p>You caught my heart…</p>
+        <p>You already had it anyway ❤️</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7 — METER -->
+  <section id="meter" class="section">
+    <div class="section-inner">
+      <h2 class="section-title scroll-reveal">Forgiveness Meter</h2>
+      <div class="glass-card meter-card scroll-reveal">
+        <label for="forgiveness-slider" class="meter-label">How forgiven am I today?</label>
+        <input type="range" id="forgiveness-slider" min="0" max="100" value="0" />
+        <div id="meter-message" class="meter-message">Sleeping on the couch 😭</div>
+        <div class="meter-track"><div id="meter-fill" class="meter-fill"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8 — QUESTION -->
+  <section id="question" class="section">
+    <div class="section-inner">
+      <h2 class="section-title question-title scroll-reveal">Will You Forgive Me?</h2>
+      <div id="question-buttons" class="question-buttons scroll-reveal">
+        <button id="btn-yes" class="btn-yes">❤️ Yes</button>
+        <button id="btn-maybe" class="btn-maybe">😏 Maybe</button>
+      </div>
+      <div id="question-result" hidden></div>
+    </div>
+  </section>
+
+  <!-- YES OVERLAY -->
+  <div id="yes-overlay" hidden>
+    <div class="yes-content">
+      <div class="yes-emoji">🎉❤️🎊</div>
+      <h2>Thank You!</h2>
+      <p>Thank you for giving us another chance.<br />I promise to make tomorrow better than yesterday.</p>
+      <button id="close-overlay" class="btn-primary">💕 Close</button>
+    </div>
+  </div>
+
+  <!-- EASTER EGG -->
+  <div id="easter-egg" hidden>
+    <div class="easter-content">
+      <p id="easter-text">I love you infinitely ❤️</p>
+      <button id="close-easter">×</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="site-footer">
+    <p>Made with love, hope, and one very sorry heart ❤️</p>
+    <p id="footer-name"></p>
+  </footer>
+
+  <audio id="bg-music" loop preload="none"></audio>
+
+  <script>
+  // ============================================
+  // EDIT EVERYTHING BELOW THIS LINE
+  // ============================================
+
+  var GIRLFRIEND_NAME   = "Khushi";
+  var MY_NAME           = "Gangster Bebo";
+  var START_DATE        = "2026-06-05T00:00:00";
+  var BG_MUSIC_URL      = "https://files.catbox.moe/e46wpk.mp3";
+
+  var LETTER = [
+    "Dear Khushi,",
+    "I know I hurt you, and for that I am truly sorry. If I could rewind time, I would choose better words and better actions. You deserve patience, understanding, and endless love. I really love you my sweetu cutu mottu khushi. I know I messed up, but please believe that my heart is in the right place.",
+    "I cannot promise perfection, but I can promise effort. Every day I want to become someone who deserves your smile, attention, care and your chattai.",
+    "I really want to make things right, not just with words but with actions. Please give me the chance to show you how much I care and how deeply sorry I am.",
+    "Forever yours Gangster Bebo ❤️"
+  ];
+
+  // PASTE YOUR GOOGLE DRIVE FILE ID ONLY (the long code in the middle of the share link)
+  // Format must be:  https://lh3.googleusercontent.com/d/YOUR_FILE_ID
+  var MEMORIES = [
+    { caption: "bhandh khushi",                  img: "https://lh3.googleusercontent.com/d/1AJKHGsjOWZdepBhGIZEF0ADNPGqDsxFx" },
+    { caption: "cutuu",                           img: "https://lh3.googleusercontent.com/d/15ro54NTfa-QMp7DsvfEFmArkL0kMh6EU" },
+    { caption: "The Day Everything Felt Perfect", img: "https://lh3.googleusercontent.com/d/1Q-eAUDT7Jec0E_biat6FEw7ag1zXU2N1" },
+    { caption: "iloveyouuu",                      img: "https://lh3.googleusercontent.com/d/1O-o6gZeLFZesdM_bnuaUZ5kqMHBRcGTO" },
+    { caption: "My favourite person, always",     img: "https://lh3.googleusercontent.com/d/1LlQ_DcSPe5xK9lEpnj_HKdjEOv0bdu0h" },
+    { caption: "Just us, exactly how I like it",  img: "https://lh3.googleusercontent.com/d/1vR-0bvlslBQaSbmFz5hfnw_8TAXUuXkc" }
+  ];
+
+  var QUOTES = [
+    "I feel the best when I am with you Khushi Gupta 💕",
+    "You make ordinary moments extraordinary ✨",
+    "The world is softer when you are near 🌸",
+    "Your laugh is my favourite sound 😊",
+    "You are my home 🏡",
+    "Loving you is the easiest thing I do ❤️",
+    "You are my favourite notification 📱💗",
+    "My heart beats faster when I see your name ",
+    "I'd choose you in every universe, every timeline ",
+    "You taught me what love actually is "
+  ];
+
+  // ============================================
+  // DO NOT EDIT BELOW THIS LINE
+  // ============================================
+
+  document.addEventListener("DOMContentLoaded", function() {
+
+    // Footer
+    document.getElementById("footer-name").textContent = "— " + MY_NAME;
+
+    // Loader
+    setTimeout(function() {
+      var l = document.getElementById("loader");
+      if (l) l.classList.add("hidden");
+    }, 1200);
+
+    // Scroll progress
+    window.addEventListener("scroll", function() {
+      var docH = document.documentElement.scrollHeight - window.innerHeight;
+      var pct  = docH > 0 ? (window.scrollY / docH) * 100 : 0;
+      var bar  = document.getElementById("scroll-progress");
+      if (bar) bar.style.width = pct + "%";
+    }, { passive: true });
+
+    // Dark mode
+    var darkBtn  = document.getElementById("dark-toggle");
+    var isDark   = false;
+    if (darkBtn) {
+      darkBtn.addEventListener("click", function() {
+        isDark = !isDark;
+        document.body.classList.toggle("dark-mode",  isDark);
+        document.body.classList.toggle("light-mode", !isDark);
+        darkBtn.textContent = isDark ? "☀️" : "🌙";
+      });
+    }
+
+    // Music — auto-starts on first tap/click anywhere, with a hint shown until then
+    var musicBtn  = document.getElementById("music-toggle");
+    var bgMusic   = document.getElementById("bg-music");
+    var soundHint = document.getElementById("sound-hint");
+    var musicOn   = false;
+    var musicStartedOnce = false;
+
+    if (BG_MUSIC_URL && bgMusic) {
+      bgMusic.src = BG_MUSIC_URL;
+      if (soundHint) setTimeout(function(){ soundHint.classList.add("show"); }, 1500);
+    } else if (soundHint) {
+      soundHint.style.display = "none";
+    }
+
+    function startMusic() {
+      if (!BG_MUSIC_URL || musicOn) return;
+      bgMusic.play().then(function() {
+        musicOn = true;
+        if (musicBtn) musicBtn.textContent = "🔇";
+        if (soundHint) soundHint.classList.remove("show");
+      }).catch(function() {});
+    }
+
+    function firstInteractionHandler() {
+      if (!musicStartedOnce) {
+        musicStartedOnce = true;
+        startMusic();
+      }
+      document.removeEventListener("click", firstInteractionHandler);
+      document.removeEventListener("touchstart", firstInteractionHandler);
+    }
+    if (BG_MUSIC_URL) {
+      document.addEventListener("click", firstInteractionHandler);
+      document.addEventListener("touchstart", firstInteractionHandler, { passive: true });
+    }
+
+    if (musicBtn) {
+      musicBtn.addEventListener("click", function() {
+        if (!BG_MUSIC_URL) return;
+        musicStartedOnce = true;
+        if (musicOn) { bgMusic.pause(); musicOn = false; musicBtn.textContent = "🎵"; }
+        else { startMusic(); }
+      });
+    }
+
+    // Cursor trail
+    var cc = document.getElementById("cursor-canvas");
+    if (cc) {
+      var cCtx = cc.getContext("2d");
+      var pts  = [];
+      cc.width = window.innerWidth; cc.height = window.innerHeight;
+      window.addEventListener("resize", function(){ cc.width = window.innerWidth; cc.height = window.innerHeight; });
+      document.addEventListener("mousemove", function(e) {
+        if (Math.random() > 0.4) pts.push({ x: e.clientX, y: e.clientY, s: Math.random()*12+6, l: 1, d: 0.025+Math.random()*0.02, vx: (Math.random()-0.5)*1.5, vy: -1-Math.random()*1.5 });
+      });
+      document.addEventListener("touchmove", function(e) {
+        var t = e.touches[0];
+        pts.push({ x: t.clientX, y: t.clientY, s: 14, l: 1, d: 0.03, vx: (Math.random()-0.5)*1.5, vy: -1.5-Math.random() });
+      }, { passive: true });
+      (function drawC() {
+        cCtx.clearRect(0,0,cc.width,cc.height);
+        for (var i = pts.length-1; i >= 0; i--) {
+          var p = pts[i]; cCtx.globalAlpha = p.l; cCtx.font = p.s+"px serif";
+          cCtx.fillText("❤️", p.x-p.s/2, p.y+p.s/2);
+          p.x+=p.vx; p.y+=p.vy; p.l-=p.d; if(p.l<=0) pts.splice(i,1);
+        }
+        cCtx.globalAlpha = 1; requestAnimationFrame(drawC);
+      })();
+    }
+
+    // Ambient particles
+    var pc = document.getElementById("particle-canvas");
+    if (pc) {
+      var pCtx = pc.getContext("2d");
+      var EM   = ["❤️","✨","🌸","💕","⭐"];
+      var amb  = [];
+      pc.width = window.innerWidth; pc.height = window.innerHeight;
+      window.addEventListener("resize", function(){ pc.width = window.innerWidth; pc.height = window.innerHeight; });
+      function mkA(b) { return { x: Math.random()*window.innerWidth, y: b ? window.innerHeight+20 : Math.random()*window.innerHeight, s: Math.random()*14+8, sp: 0.25+Math.random()*0.4, dr: (Math.random()-0.5)*0.3, al: 0.1+Math.random()*0.25, em: EM[Math.floor(Math.random()*EM.length)] }; }
+      for (var i=0;i<28;i++) amb.push(mkA(false));
+      (function drawA() {
+        pCtx.clearRect(0,0,pc.width,pc.height);
+        for (var i=0;i<amb.length;i++) { var p=amb[i]; pCtx.globalAlpha=p.al; pCtx.font=p.s+"px serif"; pCtx.fillText(p.em,p.x,p.y); p.y-=p.sp; p.x+=p.dr; if(p.y<-30) amb[i]=mkA(true); }
+        pCtx.globalAlpha=1; requestAnimationFrame(drawA);
+      })();
+    }
+
+    // Scroll reveal
+    var ro = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e, i) { if(e.isIntersecting){ setTimeout(function(){ e.target.classList.add("revealed"); }, i*80); ro.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".scroll-reveal").forEach(function(el){ ro.observe(el); });
+
+    // Hero heart
+    var heroHeart  = document.getElementById("hero-heart");
+    var heartHint  = document.getElementById("heart-hint");
+    var heartClicks = 0;
+    if (heroHeart) {
+      heroHeart.addEventListener("click", function() {
+        heartClicks++;
+        if (heartHint) {
+          if (heartClicks < 10) { heartHint.textContent = (10-heartClicks) + " more clicks to unlock a secret 🤫"; heartHint.classList.add("show"); }
+          else { heartHint.textContent = "✨ Secret unlocked! ✨"; heartHint.classList.add("show"); showEasterEgg(GIRLFRIEND_NAME + ", you are my entire world. Every heartbeat is for you. ❤️"); }
+        }
+        spawnHeart(heroHeart.getBoundingClientRect());
+      });
+    }
+
+    // Scroll to letter
+    var hmb = document.getElementById("hear-me-out");
+    if (hmb) hmb.addEventListener("click", function(){ document.getElementById("letter").scrollIntoView({ behavior: "smooth" }); });
+
+    // Countdown — reads directly from START_DATE variable, ignores localStorage
+    function updateCountdown() {
+      var start = new Date(START_DATE).getTime();
+      var diff  = Math.max(0, Date.now() - start);
+      var days  = Math.floor(diff / 86400000); diff -= days  * 86400000;
+      var hours = Math.floor(diff /  3600000); diff -= hours *  3600000;
+      var mins  = Math.floor(diff /    60000); diff -= mins  *    60000;
+      var secs  = Math.floor(diff /     1000);
+      var dd = document.getElementById("cd-days");
+      var hh = document.getElementById("cd-hours");
+      var mm = document.getElementById("cd-mins");
+      var ss = document.getElementById("cd-secs");
+      if (dd) dd.textContent = days;
+      if (hh) hh.textContent = String(hours).padStart(2,"0");
+      if (mm) mm.textContent = String(mins).padStart(2,"0");
+      if (ss) ss.textContent = String(secs).padStart(2,"0");
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Letter — reads directly from LETTER array
+    var lc = document.getElementById("letter-paragraphs");
+    var lcard = document.querySelector(".letter-card");
+    if (lc) {
+      LETTER.forEach(function(para) {
+        var p = document.createElement("p");
+        p.className   = "letter-paragraph";
+        p.textContent = para;
+        lc.appendChild(p);
+      });
+      var lStarted = false;
+      var lo = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting && !lStarted) {
+          lStarted = true;
+          var all = lc.querySelectorAll(".letter-paragraph");
+          all.forEach(function(p, i){ setTimeout(function(){ p.classList.add("visible"); }, i*500); });
+          lo.disconnect();
+        }
+      }, { threshold: 0.2 });
+      if (lcard) lo.observe(lcard);
+    }
+
+    // Reasons
+    var REASONS = [
+      { icon: "❤️",  text: "Your smile brightens my worst days" },
+      { icon: "🌸",  text: "Your kindness inspires me" },
+      { icon: "😂",  text: "You make every boring moment fun" },
+      { icon: "🌎",  text: "You are my favorite place" },
+      { icon: "☕",  text: "Even silence feels peaceful with you" },
+      { icon: "✨",  text: "You make me want to be better" }
+    ];
+    var grid = document.getElementById("reasons-grid");
+    if (grid) {
+      REASONS.forEach(function(r) {
+        var card = document.createElement("div");
+        card.className = "reason-card";
+        card.innerHTML = "<span class='reason-icon'>"+r.icon+"</span><p>"+r.text+"</p>";
+        grid.appendChild(card);
+      });
+      var co = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e,i){ if(e.isIntersecting){ setTimeout(function(){ e.target.classList.add("revealed"); },i*100); co.unobserve(e.target); } });
+      }, { threshold: 0.2 });
+      grid.querySelectorAll(".reason-card").forEach(function(c){ co.observe(c); });
+    }
+
+    // Little Things
+    var LITTLE_THINGS = [
+      { icon: "🌙",  text: "The way you care for me, every single day" },
+      { icon: "📞",  text: "How your voice instantly calms me down when i'm upset" },
+      { icon: "🥺",  text: "Your gussa when you're upset with me" },
+      { icon: "🤍",  text: "How safe I feel just being near you" },
+      { icon: "🎶",  text: "The things that remind me only of you" },
+      { icon: "🫂",  text: "The way you fit perfectly in my arms" }
+    ];
+    var ltGrid = document.getElementById("little-things-grid");
+    if (ltGrid) {
+      LITTLE_THINGS.forEach(function(r) {
+        var card = document.createElement("div");
+        card.className = "reason-card";
+        card.innerHTML = "<span class='reason-icon'>"+r.icon+"</span><p>"+r.text+"</p>";
+        ltGrid.appendChild(card);
+      });
+      var lto = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e,i){ if(e.isIntersecting){ setTimeout(function(){ e.target.classList.add("revealed"); },i*100); lto.unobserve(e.target); } });
+      }, { threshold: 0.2 });
+      ltGrid.querySelectorAll(".reason-card").forEach(function(c){ lto.observe(c); });
+    }
+
+    // Carousel — reads from MEMORIES array
+    var track  = document.getElementById("carousel-track");
+    var dotsEl = document.getElementById("carousel-dots");
+    var cur    = 0;
+    var ap;
+    var ME     = ["📸","💝","🌅","💌"];
+    if (track) {
+      MEMORIES.forEach(function(m, i) {
+        var slide = document.createElement("div");
+        slide.className = "carousel-slide";
+        if (m.img) {
+          var img = document.createElement("img");
+          img.src = m.img; img.alt = m.caption; img.className = "slide-img";
+          img.onerror = function() { var ph = document.createElement("div"); ph.className = "slide-placeholder"; ph.textContent = ME[i%ME.length]; img.replaceWith(ph); };
+          slide.appendChild(img);
+        } else {
+          var ph = document.createElement("div");
+          ph.className = "slide-placeholder"; ph.textContent = ME[i%ME.length];
+          slide.appendChild(ph);
+        }
+        var cap = document.createElement("div");
+        cap.className = "carousel-caption"; cap.textContent = m.caption;
+        slide.appendChild(cap); track.appendChild(slide);
+        if (dotsEl) {
+          var dot = document.createElement("button");
+          dot.className = "carousel-dot"+(i===0?" active":"");
+          dot.addEventListener("click", (function(idx){ return function(){ goTo(idx); }; })(i));
+          dotsEl.appendChild(dot);
+        }
+      });
+      function goTo(idx) {
+        cur = (idx + MEMORIES.length) % MEMORIES.length;
+        track.style.transform = "translateX(-"+(cur*100)+"%)";
+        if (dotsEl) dotsEl.querySelectorAll(".carousel-dot").forEach(function(d,i){ d.classList.toggle("active",i===cur); });
+        clearInterval(ap); ap = setInterval(function(){ goTo(cur+1); }, 4000);
+      }
+      goTo(0);
+      var prev = document.getElementById("carousel-prev");
+      var next = document.getElementById("carousel-next");
+      if (prev) prev.addEventListener("click", function(){ goTo(cur-1); });
+      if (next) next.addEventListener("click", function(){ goTo(cur+1); });
+      var sx = 0;
+      track.addEventListener("touchstart", function(e){ sx = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener("touchend",   function(e){ var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) goTo(dx<0?cur+1:cur-1); });
+    }
+
+    // Promises
+    var PROMISES = ["I'll listen before reacting","I'll communicate honestly","I'll respect your feelings","I'll make more memories with you","I'll never stop choosing you"];
+    var pl = document.getElementById("promises-list");
+    if (pl) {
+      PROMISES.forEach(function(t) {
+        var li = document.createElement("li"); li.className = "promise-item";
+        li.innerHTML = "<span class='promise-check'>✔</span><span>"+t+"</span>"; pl.appendChild(li);
+      });
+      var po = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e,i){ if(e.isIntersecting){ setTimeout(function(){ e.target.classList.add("revealed"); },i*130); po.unobserve(e.target); } });
+      }, { threshold: 0.2 });
+      pl.querySelectorAll(".promise-item").forEach(function(p){ po.observe(p); });
+    }
+
+    // Game
+    var gh = document.getElementById("game-heart");
+    var ga = document.getElementById("game-arena");
+    var sc = document.getElementById("score-count");
+    var gr = document.getElementById("game-result");
+    var gscore = 0; var gdone = false;
+    function mvHeart() { if(!ga||!gh) return; var m=40,mx=ga.offsetWidth-m*2,my=ga.offsetHeight-m*2; gh.style.left=(m+Math.random()*mx)+"px"; gh.style.top=(m+Math.random()*my)+"px"; }
+    mvHeart();
+    if (gh) gh.addEventListener("click", function() {
+      if (gdone) return; gscore++;
+      if (sc) sc.textContent = gscore;
+      spawnHeart(gh.getBoundingClientRect());
+      if (gscore >= 5) { gdone=true; gh.style.display="none"; if(gr) gr.removeAttribute("hidden"); triggerConfetti(); }
+      else mvHeart();
+    });
+
+    // Meter
+    var slider   = document.getElementById("forgiveness-slider");
+    var mMsg     = document.getElementById("meter-message");
+    var mFill    = document.getElementById("meter-fill");
+    var MMSGS    = [{max:10,msg:"pitti hogi 😭"},{max:30,msg:"Still in danger 😅"},{max:55,msg:"Making progress 😊"},{max:80,msg:"Almost there ❤️"},{max:100,msg:"i loveee youuuu 💕"}];
+    if (slider) {
+      function updMeter(v) {
+        v = Number(v); if(mFill) mFill.style.width=v+"%";
+        slider.style.setProperty("--slider-pct",v+"%");
+        var e = MMSGS.find(function(m){ return v<=m.max; }) || MMSGS[MMSGS.length-1];
+        if (mMsg) mMsg.textContent = e.msg;
+      }
+      slider.addEventListener("input",  function(e){ updMeter(e.target.value); });
+      slider.addEventListener("change", function(e){ updMeter(e.target.value); });
+      updMeter(0);
+    }
+
+    // Big question
+    var bY   = document.getElementById("btn-yes");
+    var bM   = document.getElementById("btn-maybe");
+    var qR   = document.getElementById("question-result");
+    var qB   = document.getElementById("question-buttons");
+    var mc   = 0; var ma = false;
+    function runAway() { if(!qB||!bM||ma) return; var mx=Math.max(0,qB.offsetWidth-bM.offsetWidth-20),my=Math.max(0,qB.offsetHeight-bM.offsetHeight-20); bM.style.position="absolute"; bM.style.left=(Math.random()*mx)+"px"; bM.style.top=(Math.random()*my)+"px"; }
+    if (bM) {
+      bM.addEventListener("mouseenter", function(){ if(!ma) runAway(); });
+      bM.addEventListener("touchstart",  function(e){ if(!ma){ e.preventDefault(); runAway(); } }, { passive: false });
+      bM.addEventListener("click", function() { mc++; if(mc>=6&&!ma){ ma=true; bM.style.position="relative"; bM.style.left=""; bM.style.top=""; } else if(ma){ if(qR){ qR.textContent="I'll keep trying until your answer becomes yes ❤️"; qR.removeAttribute("hidden"); } } else runAway(); });
+    }
+    if (bY) bY.addEventListener("click", function(){ triggerConfetti(); triggerFireworks(); var ov=document.getElementById("yes-overlay"); if(ov) ov.removeAttribute("hidden"); document.body.style.overflow="hidden"; });
+    var cov = document.getElementById("close-overlay");
+    if (cov) cov.addEventListener("click", function(){ document.getElementById("yes-overlay").setAttribute("hidden",""); document.body.style.overflow=""; });
+
+    // Easter egg overlay
+    function showEasterEgg(msg) { var ee=document.getElementById("easter-egg"); var et=document.getElementById("easter-text"); if(ee){ if(et) et.textContent=msg; ee.removeAttribute("hidden"); } }
+    var ce = document.getElementById("close-easter");
+    if (ce) ce.addEventListener("click", function(){ document.getElementById("easter-egg").setAttribute("hidden",""); });
+
+    // Type LOVE
+    var lb = [];
+    document.addEventListener("keydown", function(e){ lb.push(e.key.toLowerCase()); if(lb.length>4) lb.shift(); if(lb.join("")==="love"){ showEasterEgg("I love you infinitely ❤️"); lb=[]; } });
+
+    // Confetti
+    function triggerConfetti() {
+      var cv=document.createElement("canvas"); cv.style.cssText="position:fixed;inset:0;pointer-events:none;z-index:9980;"; document.body.appendChild(cv);
+      var cx=cv.getContext("2d"); cv.width=window.innerWidth; cv.height=window.innerHeight;
+      var C=["#f9a8d4","#c4b5fd","#fde68a","#a7f3d0","#fdba74","#ff80b5"],ps=[];
+      for(var i=0;i<180;i++) ps.push({x:Math.random()*cv.width,y:-10-Math.random()*200,w:6+Math.random()*10,h:10+Math.random()*14,r:Math.random()*Math.PI*2,dr:(Math.random()-0.5)*0.15,dx:(Math.random()-0.5)*3,dy:3+Math.random()*4,c:C[Math.floor(Math.random()*C.length)],l:1});
+      (function draw(){ cx.clearRect(0,0,cv.width,cv.height); var dead=true; ps.forEach(function(p){ if(p.l<=0) return; dead=false; cx.save(); cx.translate(p.x,p.y); cx.rotate(p.r); cx.fillStyle=p.c; cx.globalAlpha=p.l; cx.fillRect(-p.w/2,-p.h/2,p.w,p.h); cx.restore(); p.x+=p.dx; p.y+=p.dy; p.r+=p.dr; if(p.y>cv.height) p.l-=0.05; }); if(dead){cv.remove();return;} requestAnimationFrame(draw); })();
+    }
+
+    // Fireworks
+    function triggerFireworks() {
+      var cv=document.createElement("canvas"); cv.style.cssText="position:fixed;inset:0;pointer-events:none;z-index:9981;"; document.body.appendChild(cv);
+      var cx=cv.getContext("2d"); cv.width=window.innerWidth; cv.height=window.innerHeight;
+      var C=["#ff80b5","#c4b5fd","#fde68a","#a7f3d0"],rk=[],fr=0;
+      function addR(){ var x=80+Math.random()*(cv.width-160),y=cv.height*0.65+Math.random()*(cv.height*0.25),cl=C[Math.floor(Math.random()*C.length)],pa=[]; for(var i=0;i<60;i++){ var a=(Math.PI*2/60)*i,sp=2+Math.random()*4; pa.push({x:x,y:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,l:1,d:0.015+Math.random()*0.015}); } rk.push({pa:pa,cl:cl}); }
+      for(var i=0;i<4;i++) setTimeout(addR,i*350);
+      (function drawF(){ cx.fillStyle="rgba(0,0,0,0.12)"; cx.fillRect(0,0,cv.width,cv.height); var act=false; rk.forEach(function(r){ r.pa.forEach(function(p){ if(p.l<=0) return; act=true; cx.beginPath(); cx.arc(p.x,p.y,3*p.l,0,Math.PI*2); cx.fillStyle=r.cl; cx.globalAlpha=p.l; cx.fill(); p.x+=p.vx; p.y+=p.vy; p.vy+=0.05; p.l-=p.d; }); }); cx.globalAlpha=1; fr++; if(!act&&fr>60){cv.remove();return;} requestAnimationFrame(drawF); })();
+    }
+
+    // Float hearts
+    function spawnHeart(rect) {
+      var el=document.createElement("span"); el.className="float-heart"; el.textContent=Math.random()>0.5?"❤️":"💕";
+      el.style.cssText="left:"+(rect.left+rect.width/2)+"px;top:"+(rect.top+rect.height/2+window.scrollY)+"px;font-size:"+(14+Math.random()*16)+"px;";
+      document.body.appendChild(el); setTimeout(function(){ el.remove(); },4200);
+    }
+    document.addEventListener("click", function(e){ if(e.target.closest("#game-heart")) return; spawnHeart({left:e.clientX-10,top:e.clientY-10+window.scrollY,width:20,height:20}); });
+
+    // Compliments — reads from QUOTES array
+    var bub = document.getElementById("compliment-bubble");
+    if (bub && QUOTES.length > 0) {
+      function showQ() { bub.textContent=QUOTES[Math.floor(Math.random()*QUOTES.length)]; bub.classList.add("show"); setTimeout(function(){ bub.classList.remove("show"); },3500); }
+      setTimeout(showQ, 3000);
+      setInterval(showQ, 9000);
+    }
+
+    // Typewriter
+    var hs = document.querySelector(".hero-sub");
+    if (hs) {
+      setTimeout(function() {
+        var txt = hs.textContent.replace(/\s+/g," ").trim(); hs.textContent=""; hs.classList.add("typewriter"); var i=0;
+        (function type(){ if(i<txt.length){ hs.textContent+=txt[i++]; setTimeout(type,35); } else hs.classList.remove("typewriter"); })();
+      }, 1800);
+    }
+
+  }); // end DOMContentLoaded
+  </script>
+</body>
+</html>
